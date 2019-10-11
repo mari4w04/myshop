@@ -13,7 +13,7 @@ class Cart (object):
         self.cart = cart
 
  # method to add products to a cart or update their quantitiy
-    def add(self, product, quantity=1, update_quanity=False):
+    def add(self, product, quantity=1, update_quantity=False):
         product_id = str(product.id)
         if product_id not in self.cart:
             self.cart[product_id] = {'quantity': 0, 'price': str(product.price)}
@@ -30,28 +30,28 @@ class Cart (object):
         #mark the session as modified to make sure its saved
         self.session.modified = True
  
-#remove product from the cart
-def remove(self, product):
-    product_id = str(product.id)
-    if product_id in self.cart:
-        del self.cart[product_id]
-        self.save()
+    #remove product from the cart
+    def remove(self, product):
+        product_id = str(product.id)
+        if product_id in self.cart:
+            del self.cart[product_id]
+            self.save()
 
-def __iter__(self):
-    #iterate pver items in cart and get products from the db
-    product_ids = self.cart.keys()
-    #get the product objects and add them to the cart
-    products = Product.objects.filter(id__in=product_ids)
-    for products in products:
-        self.cart[str(product.id)] ['product'] = product
+    def __iter__(self):
+        #iterate pver items in cart and get products from the db
+        product_ids = self.cart.keys()
+        #get the product objects and add them to the cart
+        products = Product.objects.filter(id__in=product_ids)
+        for product in products:
+            self.cart[str(product.id)] ['product'] = product
 
-    for item in self.cart.values():
-        item['price'] = Decimal(item['price'])
-        item['total_price'] = item['price'] * item ['quantity']
-        yield item
+        for item in self.cart.values():
+            item['price'] = Decimal(item['price'])
+            item['total_price'] = item['price'] * item ['quantity']
+            yield item
 
 
-    def __len__(slef):
+    def __len__(self):
         #count all items in the cart
         return sum(item['quantity'] for item in self.cart.values())
 
