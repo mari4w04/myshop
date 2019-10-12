@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    {{user}}
+    <form action="." method="POST">
+        {% csrf_token %}
+        <label for="user">Username</label>
+        <br />
+        <input type="text" id="user" name="user" placeholder="User Name">
+        <br />
+        <label for="password">Password</label>
+        <br />
+        <input type="password" id="password" name="password" placeholder="Password">
+        <br />
+        <input type="submit" value="Submit">
+    </form>
+    {% if error %}
+        <p class="error">{{ error }}</p>
+        <p><a href="{% url 'loginapp:password_reset' %}">Reset your password</a></p>
+    {% endif  %}
+    <hr>
+    <a href="{% url 'loginapp:signup' %}">Sign up</a>
+</body>
+</html>
