@@ -14,6 +14,7 @@ def product_list(request, category_slug=None):
         products = products.filter(category=category)
     return render (request, 'shop/product/list.html',{'category': category, 'categories': categories, 'products': products})
 
+# @login_required
 def product_detail(request, id, slug):
     product = get_object_or_404(Product, id=id, slug=slug, available=True)
     cart_product_form = CartAddProductForm()
@@ -43,25 +44,25 @@ def product_detail(request, id, slug):
     # return HttpResponseBadRequest()
 
 
-@login_required
-def details(request, pk):
-    todo = get_object_or_404(TodoItem, pk=pk, user=request.user)
+# @login_required
+# def details(request, pk):
+#     todo = get_object_or_404(TodoItem, pk=pk, user=request.user)
 
-    if request.method == 'GET':
-        context = {
-            'todo': todo
-        }
-        return render(request, 'shop/details.html', context)
+#     if request.method == 'GET':
+#         context = {
+#             'todo': todo
+#         }
+#         return render(request, 'shop/details.html', context)
 
-    if request.method == 'POST':
-        todo.title = request.POST['title']
-        todo.description = request.POST['description']
-        status = request.POST.getlist('status')
-        if len(status) > 0:
-            todo.status = True
-        else:
-            todo.status = False
-        todo.save()
-        return HttpResponseRedirect(reverse('shop:product_list'))
+#     if request.method == 'POST':
+#         todo.title = request.POST['title']
+#         todo.description = request.POST['description']
+#         status = request.POST.getlist('status')
+#         if len(status) > 0:
+#             todo.status = True
+#         else:
+#             todo.status = False
+#         todo.save()
+#         return HttpResponseRedirect(reverse('shop:product_list'))
 
-    return HttpResponseBadRequest()
+#     return HttpResponseBadRequest()
