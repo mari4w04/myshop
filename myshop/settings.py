@@ -129,5 +129,7 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 CART_SETTINGS_ID ="cart"
 CART_SESSION_ID = 'cart'
