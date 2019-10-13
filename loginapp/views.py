@@ -1,9 +1,12 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as dj_login, logout as dj_logout
+from django.contrib import messages
 
+from .forms import UserUpdateForm, ProfileUpdateForm
 from .utils import random_string
 
 
@@ -27,6 +30,27 @@ def logout(request):
     dj_logout(request)
     return HttpResponseRedirect(reverse('loginapp:login'))
 
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, f'Your account has been updated!')
+            return HttpResponseRedirect(reverse('loginapp:profile'))
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+
+
+    context = {
+        'u_form': u_form,
+        'p_form': p_form
+    }
+
+    return render(request, 'loginapp/profile.html', context)
 
 def signup(request):
     if User.is_authenticated:
