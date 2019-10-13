@@ -6,9 +6,10 @@ import smtplib
 @task
 def order_created(order_id):
     order = Order.objects.get(id=order_id)
-    # to = TO:GMAIL ADDRESS
-    # gmail_user = FROM:GMAIL ADDRESS
-    # gmail_pwd = GMAIL PWD
+    # orderEmail = Order.objects.get(id=order_email)
+    # to = orderEmail
+    # gmail_user = email from
+    # gmail_pwd = pwd
     smtpserver = smtplib.SMTP("smtp.gmail.com",587)
     smtpserver.ehlo()
     smtpserver.starttls()

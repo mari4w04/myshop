@@ -34,7 +34,7 @@
                         <form action="{% url "cart:cart_add" product.id %}" method="post">
                             {{ item.update_quantity_form.quantity }}
                             {{ item.update_quantity_form.update }}
-                            <input type="submit" value="Update">
+                            <input type="submit" value="Update" class="btn btn-primary">
                             {% csrf_token %}
                         </form>
                     </td>
@@ -48,7 +48,7 @@
                 {% endwith %}
             {% endfor %}
                 <tr class="total">
-                    <td>Total</td>
+                    <td><h6>Total</h6></td>
                     <td colspan="4"></td>
                     <td class="num">${{ cart.get_total_price }}</td>
                 </tr>
